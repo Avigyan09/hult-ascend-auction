@@ -1,0 +1,64 @@
+:root {
+    --primary: #2C3E50;
+    --accent: #E74C3C;
+    --success: #27AE60;
+    --bg-color: #ECF0F1;
+    --panel-bg: #FFFFFF;
+    --border: #BDC3C7;
+}
+* { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+body { margin: 0; padding: 0; background-color: var(--bg-color); color: var(--primary); height: 100vh; overflow: hidden; display: flex; flex-direction: column; }
+
+h2, h3 { border-bottom: 2px solid var(--primary); padding-bottom: 5px; }
+
+/* Login Screen Styles */
+.login-container { display: flex; justify-content: center; align-items: center; height: 100vh; width: 100vw; background: var(--primary); }
+.login-card { background: var(--panel-bg); padding: 40px; border-radius: 8px; box-shadow: 0 10px 25px rgba(0,0,0,0.3); width: 100%; max-width: 400px; text-align: center; }
+.login-card h2 { border: none; margin-bottom: 0; color: var(--primary); }
+.login-card p { color: #7F8C8D; margin-bottom: 25px; margin-top: 5px; }
+.error-msg { color: var(--accent); font-weight: bold; margin-top: 15px; font-size: 14px; min-height: 20px; }
+
+/* Dashboard Layout */
+.top-nav { display: flex; justify-content: space-between; align-items: center; padding: 10px 20px; background: var(--panel-bg); border-bottom: 1px solid var(--border); box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+.top-nav h2 { margin: 0; border: none; font-size: 20px; }
+.dashboard-layout { display: flex; gap: 20px; padding: 20px; height: calc(100vh - 60px); overflow: hidden; }
+
+/* Column Layouts */
+.left-wrapper { flex: 2; display: flex; flex-direction: column; gap: 20px; overflow: hidden; }
+.scoreboard-panel { flex: 1.5; background: var(--panel-bg); padding: 20px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); overflow-y: auto; }
+.paddles-panel { flex: 1; background: var(--panel-bg); padding: 20px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); overflow-y: auto; min-height: 200px; }
+.control-panel { flex: 1.2; background: var(--panel-bg); padding: 20px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); overflow-y: auto; display: flex; flex-direction: column; gap: 15px; }
+.admin-creation-panel { background: #E8F8F5; padding: 15px; border-radius: 8px; border: 1px solid var(--success); flex-shrink: 0; }
+
+/* Controls & Forms */
+.form-group { margin-bottom: 15px; text-align: left; }
+label { display: block; font-weight: bold; margin-bottom: 5px; }
+input, select { width: 100%; padding: 10px; border: 1px solid var(--border); border-radius: 4px; font-size: 14px; }
+
+.btn { padding: 10px 15px; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; font-size: 14px; background: var(--primary); color: white; transition: 0.2s; }
+.btn:hover { opacity: 0.9; }
+.btn-green { background: var(--success); }
+.btn-red { background: var(--accent); }
+
+.bid-display { font-size: 32px; font-weight: bold; text-align: center; color: var(--accent); margin: 10px 0; background: #F8F9F9; padding: 15px; border-radius: 4px; border: 2px dashed var(--border); }
+
+/* Team Bidding Board */
+.team-bidding-board { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 15px; }
+.team-bid-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 15px; border: 1px solid var(--border); border-radius: 6px; background: #FDFEFE; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+.team-bid-name { font-weight: bold; font-size: 14px; flex: 1; }
+.team-bid-actions { display: flex; gap: 5px; flex: 1.5; }
+.team-bid-actions button { flex: 1; padding: 8px 0; font-size: 13px; font-weight: bold; background: #34495E; color: white; border: none; border-radius: 4px; cursor: pointer; transition: 0.1s; }
+.team-bid-actions button:hover { background: var(--accent); transform: scale(1.05); }
+.team-bid-actions button.base-open { background: var(--success); }
+
+/* Table */
+table { width: 100%; border-collapse: collapse; }
+th, td { padding: 10px; text-align: center; border-bottom: 1px solid var(--border); font-size: 14px; }
+th { background: var(--primary); color: white; position: sticky; top: 0; z-index: 10; }
+tr:hover { background: #F8F9F9; }
+
+.dq-status { color: var(--accent); font-weight: bold; }
+.qual-status { color: var(--success); font-weight: bold; }
+
+.flex-row { display: flex; gap: 10px; align-items: flex-end; }
+.flex-row > div, .flex-row > input { flex: 1; }

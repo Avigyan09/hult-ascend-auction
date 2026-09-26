@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HULT ASCEND | Live Auction Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- LOGIN SCREEN -->
+    <div id="loginScreen" class="login-container">
+        <div class="login-card">
+            <h2>Admin Login</h2>
+            <p>HULT ASCEND Auction Portal</p>
+            <div class="form-group">
+                <input type="email" id="loginEmail" placeholder="Email Address">
+            </div>
+            <div class="form-group">
+                <input type="password" id="loginPassword" placeholder="Password">
+            </div>
+            <button class="btn btn-green" onclick="handleLogin()" style="width: 100%;">Access Dashboard</button>
+            <div id="loginError" class="error-msg"></div>
+        </div>
+    </div>
+
+    <!-- MAIN DASHBOARD (Hidden until authenticated) -->
+    <div id="appScreen" style="display: none;">
+        
+        <!-- Top Navbar -->
+        <div class="top-nav">
+            <h2>HULT ASCEND | Live Auction Dashboard</h2>
+            <button class="btn btn-red" onclick="handleLogout()" style="padding: 8px 15px;">Logout</button>
+        </div>
+
+        <div class="dashboard-layout">
+            <!-- Left Column: Live Scoreboard & Active Paddles -->
+            <div class="left-wrapper">
+                
+                <div class="scoreboard-panel">
+                    <h3 style="margin: 0 0 15px 0;">Live Scoring Matrix</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Team Name</th>
+                                <th>Industry Sector</th>
+                                <th>State Purchased</th>
+                                <th>Feasibility Match</th>
+                                <th>Remaining Budget</th>
+                                <th>Total Score</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="scoreboardBody">
+                            <!-- Data injected via JS -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="paddles-panel">
+                    <h3 style="margin: 0 0 10px 0;">Active Bidding Paddles</h3>
+                    <div id="teamBiddingBoard" class="team-bidding-board"></div>
+                </div>
+
+                <!-- Hidden Base Admin Panel -->
+                <div id="adminCreationPanel" class="admin-creation-panel" style="display: none;">
+                    <h3 style="margin: 0 0 10px 0;">Root Access: Create Sub-Admin</h3>
+                    <div class="flex-row">
+                        <input type="email" id="newAdminEmail" placeholder="New Admin Email">
+                        <input type="password" id="newAdminPassword" placeholder="New Admin Password">
+                        <button class="btn btn-green" onclick="createAdmin()" style="margin: 0; padding: 8px 20px;">Create</button>
+                    </div>
+                    <div id="adminCreationMsg" style="margin-top: 5px; font-size: 13px; font-weight: bold;"></div>
+                </div>
+
+            </div>
+
+            <!-- Right Column: Org Comm Controls -->
+            <div class="control-panel">
+                <div>
+                    <h2>1. Register Team</h2>
+                    <div class="flex-row">
+                        <div class="form-group" style="margin: 0;">
+                            <label>Team Name</label>
+                            <input type="text" id="teamName" placeholder="Enter team name">
+                        </div>
+                        <button class="btn" onclick="addTeam()">Add Team</button>
+                    </div>
+                </div>
+
+                <div>
+                    <h2>2. Live Auction Desk</h2>
+                    <div class="form-group">
+                        <label>Auction Round</label>
+                        <select id="auctionRound" onchange="populateItems()">
+                            <option value="industry">Round 1: Industry Sectors</option>
+                            <option value="state">Round 2: States</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Item Up for Bid</label>
+                        <select id="auctionItem" onchange="setBasePrice()"></select>
+                    </div>
+
+                    <div class="bid-display">
+                        Current Bid: ₹<span id="currentBidValue">0</span> Cr<br>
+                        <span id="highestBidderName" style="font-size: 16px; color: #7F8C8D; display: block; margin-top: 5px;">Awaiting Opening Bid...</span>
+                    </div>
+
+                    <button class="btn btn-red" style="width: 100%; margin-top: 10px; margin-bottom: 20px;" onclick="setBasePrice()">Reset to Base Price</button>
+                    <button class="btn btn-green" onclick="confirmPurchase()" style="padding: 15px;">CONFIRM PURCHASE TO HIGHEST BIDDER</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
