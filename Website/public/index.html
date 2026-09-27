@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HULT ASCEND | Live Auction Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- LOGIN & REGISTRATION SCREEN -->
+    <div id="authScreen" class="login-container">
+        <div class="login-card" id="loginCard">
+            <h2>Portal Login</h2>
+            <p>HULT ASCEND Auction Dashboard</p>
+            <div class="form-group"><input type="email" id="loginEmail" placeholder="Email Address"></div>
+            <div class="form-group"><input type="password" id="loginPassword" placeholder="Password"></div>
+            <button class="btn btn-green" onclick="handleLogin()" style="width: 100%;">Sign In</button>
+            <div id="loginError" class="error-msg"></div>
+            <p style="font-size: 13px; margin-top: 15px;">Need access? <a href="#" onclick="toggleAuth('register')">Register here</a></p>
+        </div>
+
+        <div class="login-card" id="registerCard" style="display: none;">
+            <h2>Register</h2>
+            <p>Request Viewer or Admin Access</p>
+            <div class="form-group"><input type="text" id="regName" placeholder="Full Name"></div>
+            <div class="form-group"><input type="email" id="regEmail" placeholder="Email Address"></div>
+            <div class="form-group"><input type="password" id="regPassword" placeholder="Password"></div>
+            <button class="btn btn-primary" onclick="handleRegister()" style="width: 100%;">Create Account</button>
+            <div id="regMsg" class="error-msg"></div>
+            <p style="font-size: 13px; margin-top: 15px;">Already registered? <a href="#" onclick="toggleAuth('login')">Back to Login</a></p>
+        </div>
+    </div>
+
+    <!-- MAIN DASHBOARD -->
+    <div id="appScreen" style="display: none;">
+        
+        <!-- Top Navbar -->
+        <div class="top-nav">
+            <h2 style="border: none; margin: 0;">HULT ASCEND | <span id="userRoleBadge" class="role-badge"></span></h2>
+            <div>
+                <button class="btn btn-primary" onclick="openMappingModal()" style="margin-right: 15px;">Feasibility Matrix</button>
+                <button class="btn btn-red" onclick="handleLogout()" style="padding: 8px 15px;">Logout</button>
+            </div>
+        </div>
+
+        <div class="dashboard-layout">
+            <!-- Left Column: Live Scoreboard & View-Only Info -->
+            <div class="left-wrapper">
+                
+                <div class="scoreboard-panel">
+                    <h3 style="margin: 0 0 15px 0;">Live Scoring Matrix</h3>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Team Name</th>
+                                    <th>Industry Sector(s)</th>
+                                    <th>State</th>
+                                    <th>Feasibility Match</th>
+                                    <th>Round 1 Spend</th>
+                                    <th>Remaining Budget</th>
+                                    <th>Total Score</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="scoreboardBody">
+                                <!-- Data injected via JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Viewer-Only Active Bid Status -->
+                <div id="viewerBidStatus" class="viewer-bid-status" style="display: none;">
+                    <h3 style="margin: 0 0 10px 0;">Currently Auctioning</h3>
+                    <div id="viewerCurrentItem" style="font-size: 22px; font-weight: bold; color: var(--primary); text-align: center; margin-bottom: 15px;">-</div>
+                    
+                    <div class="bid-display" style="margin: 0;">
+                        ₹<span id="viewerBidValue">0</span> Cr<br>
+                        <span id="viewerHighestBidder" style="font-size: 16px; color: #7F8C8D;">Awaiting Opening Bid...</span>
+                    </div>
+                </div>
+
+                <!-- Admin Paddles Panel -->
+                <div id="paddlesPanel" class="paddles-panel">
+                    <h3 style="margin: 0 0 10px 0;">Active Bidding Paddles</h3>
+                    <div id="teamBiddingBoard" class="team-bidding-board"></div>
+                </div>
+            </div>
+
+            <!-- Right Column: Org Comm Controls (Hidden from Viewers) -->
+            <div id="controlPanel" class="control-panel">
+                
+                <!-- Base Admin: User Management -->
+                <div id="userManagementPanel" style="display: none; background: #E8F8F5; padding: 15px; border-radius: 6px; border: 1px solid var(--success);">
+                    <h3 style="margin: 0 0 10px 0; font-size: 16px;">Base Admin: User Management</h3>
+                    <div id="userListContainer" style="max-height: 150px; overflow-y: auto; font-size: 13px;"></div>
+                </div>
+
+                <!-- Sub-Admin: Admin Roster Viewer -->
+                <div id="adminRosterPanel" style="display: none; background: #EBF5FB; padding: 15px; border-radius: 6px; border: 1px solid #3498DB;">
+                    <h3 style="margin: 0 0 10px 0; font-size: 16px;">Current Admins</h3>
+                    <div id="adminListContainer" style="max-height: 100px; overflow-y: auto; font-size: 13px;"></div>
+                </div>
+
+                <!-- Add Team Section -->
+                <div style="background: var(--panel-bg);">
+                    <h2>1. Register Team</h2>
+                    <div class="flex-row">
+                        <div class="form-group" style="margin: 0; flex: 1;">
+                            <input type="text" id="teamName" placeholder="Enter team name">
+                        </div>
+                        <button class="btn btn-primary" onclick="addTeam()">Add</button>
+                    </div>
+                </div>
+
+                <!-- Auction Desk Section -->
+                <div style="background: var(--panel-bg);">
+                    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--primary); padding-bottom: 5px; margin-bottom: 15px;">
+                        <h2 style="border: none; margin: 0; padding: 0;">2. Live Auction Desk</h2>
+                        <button class="btn" style="background: #F39C12; padding: 5px 10px; font-size: 12px; color: white;" onclick="advanceToRound2()">Advance to R2</button>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Auction Round</label>
+                        <select id="auctionRound" onchange="populateItems()">
+                            <option value="industry">Round 1: Industry Sectors</option>
+                            <option value="state">Round 2: States</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Item Up for Bid</label>
+                        <select id="auctionItem" onchange="setBasePrice()"></select>
+                    </div>
+
+                    <div class="bid-display">
+                        Current Bid: ₹<span id="currentBidValue">0</span> Cr<br>
+                        <span id="highestBidderName" style="font-size: 16px; color: #7F8C8D; display: block; margin-top: 5px;">Awaiting Opening Bid...</span>
+                    </div>
+
+                    <button class="btn btn-red" style="width: 100%; margin-top: 10px; margin-bottom: 20px;" onclick="setBasePrice()">Reset to Base Price</button>
+                    <button id="confirmPurchaseBtn" class="btn btn-green" onclick="confirmPurchase()" style="padding: 15px; width: 100%;">CONFIRM PURCHASE</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FEASIBILITY MODAL -->
+    <div id="mappingModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeMappingModal()">&times;</span>
+            <h2 style="margin-top:0; color: var(--primary);">State & Industry Feasibility Mapping</h2>
+            <p style="color: #7F8C8D; margin-top: 5px;">Teams may only bid on a State in Round 2 if they own at least one compatible Industry listed below.</p>
+            <div id="mappingContent" class="mapping-grid"></div>
+        </div>
+    </div>
+
+    <!-- FIREBASE CLOUD SDKS -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-database-compat.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

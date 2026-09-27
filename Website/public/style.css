@@ -1,0 +1,226 @@
+:root {
+    --primary: #2C3E50;
+    --accent: #E74C3C;
+    --success: #27AE60;
+    --bg-color: #ECF0F1;
+    --panel-bg: #FFFFFF;
+    --border: #BDC3C7;
+    --text: #2C3E50;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text);
+    margin: 0;
+    padding: 0;
+}
+
+/* Auth Screens */
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+.login-card {
+    background: var(--panel-bg);
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    width: 350px;
+    text-align: center;
+}
+.login-card h2 {
+    margin-top: 0;
+    color: var(--primary);
+}
+
+/* Layout */
+.top-nav {
+    background-color: var(--panel-bg);
+    padding: 15px 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    margin-bottom: 20px;
+}
+.role-badge {
+    font-size: 14px;
+    background: #F39C12;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    vertical-align: middle;
+}
+.dashboard-layout {
+    display: flex;
+    gap: 20px;
+    padding: 0 20px;
+}
+.left-wrapper {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.control-panel, .scoreboard-panel, .paddles-panel, .viewer-bid-status {
+    background: var(--panel-bg);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+/* 
+ * UI FIX: Forces the right-side control panel elements to stack vertically 
+ * cleanly with 25px gaps, instead of collapsing horizontally. 
+ */
+.control-panel {
+    flex: 1;
+    max-width: 400px;
+    display: flex; 
+    flex-direction: column; 
+    gap: 25px; 
+}
+.control-panel h2 {
+    font-size: 18px;
+    border-bottom: 2px solid var(--primary);
+    padding-bottom: 5px;
+    margin-top: 0;
+    margin-bottom: 15px; 
+}
+
+/* Forms & Buttons */
+.form-group {
+    margin-bottom: 15px;
+    text-align: left;
+}
+.form-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    font-size: 14px;
+}
+input, select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+.btn {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.2s;
+}
+.btn-primary { background: var(--primary); color: white; }
+.btn-primary:hover { background: #1A252F; }
+.btn-green { background: var(--success); color: white; }
+.btn-green:hover { background: #219653; }
+.btn-red { background: var(--accent); color: white; }
+.btn-red:hover { background: #C0392B; }
+.btn:disabled { background: #BDC3C7; cursor: not-allowed; }
+.flex-row {
+    display: flex;
+    gap: 10px;
+    align-items: stretch;
+}
+.error-msg {
+    color: var(--accent);
+    font-size: 13px;
+    margin-top: 10px;
+}
+
+/* Scoreboard Table */
+.table-container {
+    overflow-x: auto;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+th, td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+}
+th {
+    background: #F8F9F9;
+    color: var(--primary);
+}
+.qual-status {
+    color: var(--success);
+    font-weight: bold;
+}
+.dq-status {
+    color: var(--accent);
+    font-weight: bold;
+}
+
+/* Bidding Panels */
+.bid-display {
+    background: #F8F9F9;
+    padding: 15px;
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    border-radius: 6px;
+    margin: 15px 0;
+    border: 1px solid var(--border);
+}
+.team-bidding-board {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 15px;
+}
+.team-bid-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #F8F9F9;
+    padding: 12px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+}
+.team-bid-name {
+    font-weight: bold;
+    font-size: 14px;
+}
+.paddle-warning {
+    font-size: 10px;
+    color: var(--accent);
+    font-weight: bold;
+}
+.team-bid-actions button {
+    padding: 6px 10px;
+    margin-left: 5px;
+    border: none;
+    border-radius: 4px;
+    background: #3498DB;
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+}
+.team-bid-actions button.base-open {
+    background: var(--success);
+}
+.team-bid-actions button:disabled {
+    background: #BDC3C7;
+    cursor: not-allowed;
+}
+
+/* Modal & Feasibility Matrix Styles */
+.modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.6); }
+.modal-content { background-color: var(--panel-bg); margin: 5% auto; padding: 25px; border-radius: 8px; width: 85%; max-width: 900px; box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
+.close-btn { color: #aaa; float: right; font-size: 28px; font-weight: bold; cursor: pointer; line-height: 20px; }
+.close-btn:hover { color: var(--accent); }
+.mapping-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 20px; max-height: 60vh; overflow-y: auto; padding-right: 10px;}
+.mapping-card { border: 1px solid var(--border); border-radius: 6px; padding: 15px; background: #F8F9F9; }
+.mapping-card h4 { margin: 0 0 10px 0; color: var(--primary); border-bottom: 2px solid var(--primary); padding-bottom: 5px; font-size: 16px;}
+.mapping-card ul { margin: 0; padding-left: 20px; font-size: 13px; color: #34495E; }
+.mapping-card ul li { margin-bottom: 4px; }
