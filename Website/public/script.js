@@ -2,12 +2,12 @@
 // 1. FIREBASE INITIALIZATION
 // ==========================================
 const firebaseConfig = {
-    apiKey: "AIzaSyA3R5ah25XNme41A35fV92nGeqwufkk8G8",
+    apiKey: "YOUR_API_KEY_HERE",
     authDomain: "hult-ascend-auction.firebaseapp.com",
     projectId: "hult-ascend-auction",
     storageBucket: "hult-ascend-auction.firebasestorage.app",
     messagingSenderId: "1028225355206",
-    appId: "1:1028225355206:web:51deddc8b2296b8d3836c7",
+    appId: "YOUR_APP_ID_HERE",
     measurementId: "G-7LWGLG3G9Y",
     databaseURL: "https://hult-ascend-auction-default-rtdb.asia-southeast1.firebasedatabase.app" 
 };
@@ -18,8 +18,8 @@ const db = firebase.database();
 // ==========================================
 // 2. CORE LOGIC & PARAMETERS
 // ==========================================
-const BASE_ADMIN_EMAIL = "avigyan.kishordas.ece29@heritageit.edu.in";
-const BASE_ADMIN_PW = "123@Puni";
+const BASE_ADMIN_EMAIL = "ADMIN_EMAIL_HIDDEN";
+const BASE_ADMIN_PW = "ADMIN_PASSWORD_HIDDEN";
 const baseBudget = 200;
 const threshold = 35;
 const round1MaxSpend = 135; 
